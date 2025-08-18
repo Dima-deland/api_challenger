@@ -1,25 +1,13 @@
 pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                sh 'echo "Hello World"'
-                sh 'docker --version'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
-            }
-        }
-        stage('Test') {
-            steps {
-                sh '/opt/maven/bin/mvn clean test'
-            }
-        }
+    agent {label 'ec2-agent'}
+    environment {
+        GITHUB_TOKEN=credentials('GitHub-pat')
     }
-    post {
-        always {
-            junit 'target/surefire-reports/*.xml'
+    stages {
+        stage('build') {
+            steps {
+                sh 'mvn clean test'
+            }
         }
     }
 }
