@@ -13,6 +13,7 @@ pipeline {
             steps {
                 sh 'mvn clean test'
             }
+        }
 
              stage('Allure Report') {
             steps {
