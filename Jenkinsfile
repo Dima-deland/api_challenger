@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-             stage('Allure Report') {
+             stage('Allure Report') {  // this stage is needed to generate Allure reports
             steps {
                 allure([
                     includeProperties: false,
